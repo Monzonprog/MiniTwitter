@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.Model
+package com.jmonzon.minitwitter.models
 
 data class RequestSignup(
     val code: String,
