@@ -7,19 +7,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MiniTwitterClient {
     private var instance: MiniTwitterClient? = null
 
-    var retrofit: Retrofit = Retrofit.Builder()
+    private var retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(Constants.baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     var miniTwitterService: MiniTwitterService = retrofit.create(MiniTwitterService::class.java)
 
-    fun getInstance(): MiniTwitterClient? {
-        if (instance == null) {
+    fun getInstance(): MiniTwitterClient {
+        return instance?. ?: run {
             instance = MiniTwitterClient()
+            instance!!
         }
-        return instance
     }
-
 }
 
