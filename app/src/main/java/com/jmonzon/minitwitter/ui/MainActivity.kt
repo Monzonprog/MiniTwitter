@@ -9,16 +9,21 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.jmonzon.minitwitter.R
+import com.jmonzon.minitwitter.models.RequestLogin
+import com.jmonzon.minitwitter.models.ResponseAuth
 import com.jmonzon.minitwitter.retrofit.MiniTwitterClient
 import com.jmonzon.minitwitter.retrofit.MiniTwitterService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var btnLogin: Button
     private lateinit var tvGoSignUp: TextView
-    private lateinit var etEmail : EditText
-    private lateinit var etPassword : EditText
-    private lateinit var miniTwitterClient : MiniTwitterClient
+    private lateinit var etEmail: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var miniTwitterClient: MiniTwitterClient
     private lateinit var miniTwitterService: MiniTwitterService
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,18 +51,64 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitInit() {
-        miniTwitterClient = MiniTwitterClient().getInstance()!!
+        miniTwitterClient = MiniTwitterClient().getInstance()
         miniTwitterService = MiniTwitterClient().miniTwitterService
-  }
+    }
 
     //Listener for elements in view
     private val listener = View.OnClickListener { view ->
-        when (view.getId()) {
+        when (view.id) {
             R.id.buttonLogin -> {
-                Toast.makeText(this, "Login", Toast.LENGTH_LONG).show()
+                goLogin()
             }
             R.id.textViewSignUp -> {
                 goSignUp()
+            }
+        }
+    }
+
+    //Function for login
+    private fun goLogin() {
+        val email: String = etEmail.text.toString()
+        val password: String = etPassword.text.toString()
+
+        when {
+            email.isEmpty() -> {
+                etEmail.error = "Campo email es requerido"
+            }
+            password.isEmpty() -> {
+                etPassword.error = "Password requerido"
+            }
+            else -> {
+                val requestLogin = RequestLogin(email, password)
+                val call: Call<ResponseAuth> = miniTwitterService.doLogin(requestLogin)
+
+                call.enqueue(object : Callback<ResponseAuth> {
+                    override fun onResponse(
+                        call: Call<ResponseAuth>,
+                        response: Response<ResponseAuth>
+                    ) {
+                        if (response.isSuccessful) {
+                            val i = Intent(applicationContext, DashboardActivity::class.java)
+                            startActivity(i)
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                "Ha ocurrido un error al logarte, revisa tus datos",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseAuth>, t: Throwable) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Problemas de conexión, por favor intentalo de nuevo más tarde",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
             }
         }
     }
