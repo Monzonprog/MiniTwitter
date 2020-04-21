@@ -15,7 +15,7 @@ class MiniTwitterClient {
     var miniTwitterService: MiniTwitterService = retrofit.create(MiniTwitterService::class.java)
 
     fun getInstance(): MiniTwitterClient {
-        return instance?. ?: run {
+        return instance?.let { it } ?: run {
             instance = MiniTwitterClient()
             instance!!
         }
