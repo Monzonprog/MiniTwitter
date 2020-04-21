@@ -1,8 +1,8 @@
 package com.jmonzon.minitwitter.models
 
 data class RequestSignup(
-    val code: String,
+    val username: String,
     val email: String,
     val password: String,
-    val username: String
+    val code: String
 )
