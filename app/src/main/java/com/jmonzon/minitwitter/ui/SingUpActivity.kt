@@ -3,6 +3,7 @@ package com.jmonzon.minitwitter.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -97,12 +98,32 @@ class SingUpActivity : AppCompatActivity() {
                         response: Response<ResponseAuth>
                     ) {
                         if (response.isSuccessful) {
-                            response.body()!!.token.let {
-                                SharedPreferencesManager().setStringValueSharedPreferences(
-                                    Constants.tokenValue,
-                                    it
-                                )
-                            }
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.tokenValue,
+                                response.body()!!.token
+                            )
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.userName,
+                                response.body()!!.username
+                            )
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.email,
+                                response.body()!!.email
+                            )
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.photoUrl,
+                                response.body()!!.photoUrl
+                            )
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.created,
+                                response.body()!!.created
+                            )
+                            SharedPreferencesManager().setBooleanValueSharedPreferences(
+                                Constants.active,
+                                response.body()!!.active
+                            )
+                            Log.i(SingUpActivity::class.java.simpleName, "Datos salvados")
+
                             val i = Intent(applicationContext, DashboardActivity::class.java)
                             startActivity(i)
                             finish()
@@ -110,7 +131,11 @@ class SingUpActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<ResponseAuth>, t: Throwable) {
-                        Toast.makeText(applicationContext, "Ha ocurrido un error", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            applicationContext,
+                            "Ha ocurrido un error",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
                 })

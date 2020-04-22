@@ -1,13 +1,14 @@
 package com.jmonzon.minitwitter.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.models.RequestLogin
 import com.jmonzon.minitwitter.models.ResponseAuth
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        MyApp.Companion.setContext(this)
+        MyApp.setContext(this)
 
         //Initialized retrofit vars
         retrofitInit()
@@ -93,11 +94,32 @@ class MainActivity : AppCompatActivity() {
                         response: Response<ResponseAuth>
                     ) {
                         if (response.isSuccessful) {
-                            response.body()!!.token.let {
-                                SharedPreferencesManager().setStringValueSharedPreferences(Constants.tokenValue,
-                                    it
-                                )
-                            }
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.tokenValue,
+                                response.body()!!.token
+                            )
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.userName,
+                                response.body()!!.username
+                            )
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.email,
+                                response.body()!!.email
+                            )
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.photoUrl,
+                                response.body()!!.photoUrl
+                            )
+                            SharedPreferencesManager().setStringValueSharedPreferences(
+                                Constants.created,
+                                response.body()!!.created
+                            )
+                            SharedPreferencesManager().setBooleanValueSharedPreferences(
+                                Constants.active,
+                                response.body()!!.active
+                            )
+                            Log.i(MainActivity::class.java.simpleName, "Datos salvados")
+
                             val i = Intent(applicationContext, DashboardActivity::class.java)
                             startActivity(i)
                             finish()
