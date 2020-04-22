@@ -13,6 +13,8 @@ import com.jmonzon.minitwitter.models.RequestSignup
 import com.jmonzon.minitwitter.models.ResponseAuth
 import com.jmonzon.minitwitter.retrofit.MiniTwitterClient
 import com.jmonzon.minitwitter.retrofit.MiniTwitterService
+import com.jmonzon.minitwitter.utils.Constants
+import com.jmonzon.minitwitter.utils.SharedPreferencesManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -95,6 +97,12 @@ class SingUpActivity : AppCompatActivity() {
                         response: Response<ResponseAuth>
                     ) {
                         if (response.isSuccessful) {
+                            response.body()!!.token.let {
+                                SharedPreferencesManager().setStringValueSharedPreferences(
+                                    Constants.tokenValue,
+                                    it
+                                )
+                            }
                             val i = Intent(applicationContext, DashboardActivity::class.java)
                             startActivity(i)
                             finish()
