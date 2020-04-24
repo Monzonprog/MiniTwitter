@@ -40,7 +40,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+                        app:srcCompat="@drawable/ic_account_circle_gray_24dp" />
 
                     <TextView
                         android:id="@+id/textViewToolbar"
@@ -66,9 +66,10 @@
             android:layout_margin="@dimen/fab_margin"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/colorAzul"
             app:layout_constraintBottom_toTopOf="@+id/nav_view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            app:srcCompat="@drawable/ic_write_tweet_white" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
