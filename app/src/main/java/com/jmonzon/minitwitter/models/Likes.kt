@@ -1,6 +1,6 @@
 package com.jmonzon.minitwitter.models
 
-data class User(
+data class Likes(
     val created: String,
     val descripcion: String,
     val id: Int,
