@@ -12,7 +12,7 @@ class AuthInterceptor : Interceptor {
             SharedPreferencesManager().getStringValueSharedPreferences(Constants.tokenValue)
 
         val request: Request =
-            chain.request().newBuilder().addHeader("Authorization", "Bearer " + token).build()
+            chain.request().newBuilder().addHeader("Authorization", "Bearer $token").build()
 
         return chain.proceed(request)
     }
