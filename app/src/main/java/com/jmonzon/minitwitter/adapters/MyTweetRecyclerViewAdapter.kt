@@ -1,6 +1,5 @@
 package com.jmonzon.minitwitter.adapters
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
 import android.util.Log
@@ -13,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.models.Tweet
-import com.jmonzon.minitwitter.utils.Constants
-import com.jmonzon.minitwitter.utils.MyApp
-import com.jmonzon.minitwitter.utils.SharedPreferencesManager
+import com.jmonzon.minitwitter.common.Constants
+import com.jmonzon.minitwitter.common.SharedPreferencesManager
 import kotlinx.android.synthetic.main.fragment_tweet.view.*
 
 class MyTweetRecyclerViewAdapter(
