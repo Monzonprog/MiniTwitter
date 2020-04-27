@@ -1,6 +1,6 @@
 package com.jmonzon.minitwitter.retrofit
 
-import com.jmonzon.minitwitter.utils.Constants
+import com.jmonzon.minitwitter.common.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
