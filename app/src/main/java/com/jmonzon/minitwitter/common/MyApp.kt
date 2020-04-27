@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.utils
+package com.jmonzon.minitwitter.common
 
 import android.app.Application
 import android.content.Context

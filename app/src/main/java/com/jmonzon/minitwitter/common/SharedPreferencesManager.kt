@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.utils
+package com.jmonzon.minitwitter.common
 
 import android.content.Context
 import android.content.SharedPreferences
