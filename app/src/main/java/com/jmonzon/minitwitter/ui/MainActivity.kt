@@ -14,9 +14,9 @@ import com.jmonzon.minitwitter.models.RequestLogin
 import com.jmonzon.minitwitter.models.ResponseAuth
 import com.jmonzon.minitwitter.retrofit.MiniTwitterClient
 import com.jmonzon.minitwitter.retrofit.MiniTwitterService
-import com.jmonzon.minitwitter.utils.Constants
-import com.jmonzon.minitwitter.utils.MyApp
-import com.jmonzon.minitwitter.utils.SharedPreferencesManager
+import com.jmonzon.minitwitter.common.Constants
+import com.jmonzon.minitwitter.common.MyApp
+import com.jmonzon.minitwitter.common.SharedPreferencesManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
