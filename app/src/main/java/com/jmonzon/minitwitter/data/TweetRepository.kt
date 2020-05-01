@@ -4,10 +4,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.jmonzon.minitwitter.common.MyApp
 import com.jmonzon.minitwitter.models.Tweet
 import com.jmonzon.minitwitter.retrofit.AuthMiniTwitterClient
 import com.jmonzon.minitwitter.retrofit.AuthMiniTwitterService
-import com.jmonzon.minitwitter.common.MyApp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,7 +16,7 @@ class TweetRepository {
 
     private lateinit var authMiniTwitterService: AuthMiniTwitterService
     private lateinit var authMiniTwitterClient: AuthMiniTwitterClient
-    lateinit var allTweetsRecovered: LiveData<List<Tweet>>
+    private lateinit var allTweetsRecovered: LiveData<List<Tweet>>
 
     init {
         initRetrofit()
@@ -27,7 +27,6 @@ class TweetRepository {
         authMiniTwitterService = AuthMiniTwitterClient().authMiniTwitterService
         allTweetsRecovered = getAllTweets()
     }
-
 
     fun getAllTweets(): LiveData<List<Tweet>> {
         val data: MutableLiveData<List<Tweet>> = MutableLiveData()
@@ -58,7 +57,6 @@ class TweetRepository {
                 ).show()
             }
         })
-
         return data
     }
 }
