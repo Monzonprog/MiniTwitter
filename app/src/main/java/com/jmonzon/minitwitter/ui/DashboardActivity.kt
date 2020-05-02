@@ -3,26 +3,35 @@ package com.jmonzon.minitwitter.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jmonzon.minitwitter.R
+import com.jmonzon.minitwitter.common.Constants
+import com.jmonzon.minitwitter.common.MyApp
+import com.jmonzon.minitwitter.common.SharedPreferencesManager
 import com.jmonzon.minitwitter.ui.ui.NewTweetDialogFragment
 
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var fab : FloatingActionButton
+    private lateinit var ivAvatar : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        fab = findViewById(R.id.fab)
+
+        findViews()
+        setImageAvatar()
+
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -39,5 +48,21 @@ class DashboardActivity : AppCompatActivity() {
             val dialogFragment : NewTweetDialogFragment = NewTweetDialogFragment()
             dialogFragment.show(supportFragmentManager, "NewTweetDialogFragment")
         })
+    }
+
+    private fun findViews() {
+        fab = findViewById(R.id.fab)
+        ivAvatar = findViewById(R.id.imageViewToolbarPhoto)
+    }
+
+    private fun setImageAvatar() {
+        val photoUrl: String =
+            SharedPreferencesManager().getStringValueSharedPreferences(Constants.photoUrl)
+
+        if (!photoUrl.isEmpty()) {
+            Glide.with(MyApp.getContext())
+                .load(Constants.baseUrlPhotos + photoUrl)
+                .into(ivAvatar)
+        }
     }
 }
