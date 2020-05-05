@@ -42,7 +42,7 @@ private var context : Context
         //If user have photo we use it
         if (!item.user.photoUrl.equals("")) {
             Glide.with(context)
-                .load("https://www.minitwitter.com/apiv1/uploads/photos/" + item.user.photoUrl)
+                .load(Constants.baseUrlPhotos + item.user.photoUrl)
                 .into(holder.ivAvatar)
         }
 

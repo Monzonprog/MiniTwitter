@@ -3,6 +3,7 @@ package com.jmonzon.minitwitter.common
 class Constants {
     companion object {
        const val baseUrl: String = "https://www.minitwitter.com:3001/apiv1/"
+       const val baseUrlPhotos: String = "https://www.minitwitter.com/apiv1/uploads/photos/"
        const val tokenValue : String = "TOKEN_VALUE"
        const val userName : String = "USERNAME_VALUE"
        const val photoUrl : String = "PHOTOURL_VALUE"
