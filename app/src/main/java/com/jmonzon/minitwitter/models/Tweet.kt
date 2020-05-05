@@ -6,3 +6,7 @@ data class Tweet(
     val mensaje: String,
     val user: User
 )
+
+fun Tweet(newTweet: Tweet): Tweet {
+    return Tweet(newTweet.id, newTweet.likes, newTweet.mensaje, newTweet.user)
+}
