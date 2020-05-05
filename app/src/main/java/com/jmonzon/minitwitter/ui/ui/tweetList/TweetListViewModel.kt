@@ -7,8 +7,19 @@ import com.jmonzon.minitwitter.models.Tweet
 
 class TweetListViewModel : ViewModel() {
 
-    private var tweetRepository: TweetRepository = TweetRepository()
-    private var tweets: LiveData<List<Tweet>> = tweetRepository.getAllTweets()
+    companion object {
+        val  tweetRepository: TweetRepository = TweetRepository()
+        var tweets: LiveData<List<Tweet>> =  tweetRepository.getAllTweets()
+    }
 
-    fun getTweets(): LiveData<List<Tweet>>{ return tweets }
+    fun getTweets(): LiveData<List<Tweet>> {
+        return tweets
+    }
+
+    fun insertNewTweet(message: String){
+        tweetRepository.createTweet(message)
+    }
+
+
+
 }

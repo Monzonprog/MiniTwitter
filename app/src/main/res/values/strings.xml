@@ -15,6 +15,10 @@
     <string name="toolbar_title_home">Inicio</string>
     <string name="text_twittear">Twittear</string>
     <string name="text_message_tweet">¿Qué está pasando?</string>
+    <string name="cancel_tweet">Cancelar Tweet</string>
+    <string name="message_cancel_tweet">¿Desea cancelar el tweet? El tweet se eliminará</string>
+    <string name="remove_tweet">Eliminar</string>
+    <string name="cancel_option">Cancelar</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -24,4 +28,5 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
 </resources>

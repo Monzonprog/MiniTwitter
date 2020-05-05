@@ -1,6 +1,7 @@
 package com.jmonzon.minitwitter.ui.ui.tweetList
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.adapters.MyTweetRecyclerViewAdapter
+import com.jmonzon.minitwitter.models.Tweet
+import com.jmonzon.minitwitter.retrofit.AuthMiniTwitterClient
+import com.jmonzon.minitwitter.retrofit.AuthMiniTwitterService
 
 class TweetListFragment : Fragment() {
 
     private var columnCount = 1
     private lateinit var tweetListViewModel: TweetListViewModel
+    private lateinit var adapter: MyTweetRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +44,8 @@ class TweetListFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 tweetListViewModel.getTweets()
-                    .observe(viewLifecycleOwner, Observer { tweetListFromRepository ->
-                        adapter = MyTweetRecyclerViewAdapter(tweetListFromRepository, context)
+                    .observe(viewLifecycleOwner, Observer {
+                        adapter = MyTweetRecyclerViewAdapter(it, context)
                     })
             }
         }
