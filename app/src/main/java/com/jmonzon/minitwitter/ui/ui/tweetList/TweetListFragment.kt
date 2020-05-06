@@ -12,17 +12,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.adapters.MyTweetRecyclerViewAdapter
 import com.jmonzon.minitwitter.models.Tweet
-import com.jmonzon.minitwitter.retrofit.AuthMiniTwitterClient
-import com.jmonzon.minitwitter.retrofit.AuthMiniTwitterService
+
 
 class TweetListFragment : Fragment() {
 
     private var columnCount = 1
     private lateinit var tweetListViewModel: TweetListViewModel
-    private lateinit var adapter: MyTweetRecyclerViewAdapter
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var recyclerView: RecyclerView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,19 +38,31 @@ class TweetListFragment : Fragment() {
             false
         )
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                tweetListViewModel.getTweets()
-                    .observe(viewLifecycleOwner, Observer {
-                        adapter = MyTweetRecyclerViewAdapter(it, context)
-                    })
-            }
+        recyclerView = view.findViewById(R.id.list)
+        swipeRefreshLayout = view.findViewById(R.id.swiperefreshlayout)
+        swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.colorAzul))
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = true
+            loadNewTweets(view.context)
         }
+
+        loadTweets(view.context)
         return view
+    }
+
+    private fun loadTweets(context: Context) {
+        tweetListViewModel.getTweets()
+            .observe(viewLifecycleOwner, Observer {
+                recyclerView.adapter = MyTweetRecyclerViewAdapter(it, context)
+            })
+    }
+
+    private fun loadNewTweets(context: Context) {
+        tweetListViewModel.getNewTweets()
+            .observe(viewLifecycleOwner, Observer {
+                recyclerView.adapter = MyTweetRecyclerViewAdapter(it, context)
+                swipeRefreshLayout.isRefreshing = false
+            })
+        tweetListViewModel.getNewTweets().removeObservers(this)
     }
 }

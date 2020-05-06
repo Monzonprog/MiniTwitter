@@ -16,6 +16,10 @@ class TweetListViewModel : ViewModel() {
         return tweets
     }
 
+    fun getNewTweets(): LiveData<List<Tweet>> {
+        return tweetRepository.getAllTweets()
+    }
+
     fun insertNewTweet(message: String){
         tweetRepository.createTweet(message)
     }
