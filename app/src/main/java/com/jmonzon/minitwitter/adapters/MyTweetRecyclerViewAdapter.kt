@@ -14,6 +14,7 @@ import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.models.Tweet
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_tweet.view.*
 
 class MyTweetRecyclerViewAdapter(
@@ -36,15 +37,22 @@ private var context : Context
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.tvUsername.text = item.user.username
+        holder.tvUsername.text = "@" + item.user.username
         holder.tvMessage.text = item.mensaje
         holder.tvLikeCount.text = item.likes.size.toString()
         //If user have photo we use it
-        if (!item.user.photoUrl.equals("")) {
+        if (item.user.photoUrl != "") {
             Glide.with(context)
                 .load(Constants.baseUrlPhotos + item.user.photoUrl)
                 .into(holder.ivAvatar)
         }
+
+        //reset color
+        Glide.with(context)
+            .load(R.drawable.ic_like)
+            .into(holder.ivLike)
+        holder.tvLikeCount.setTextColor(context.resources.getColor(android.R.color.black))
+        holder.tvLikeCount.setTypeface(null, Typeface.BOLD)
 
         //It tweet have a like from this user we paint a pink heart
         for (like in item.likes) {
@@ -65,7 +73,7 @@ private var context : Context
         val tvUsername: TextView = mView.textViewUsername
         val tvMessage: TextView = mView.textViewMessage
         val tvLikeCount: TextView = mView.textViewLikesCount
-        val ivAvatar: ImageView = mView.imageViewAvatar
+        val ivAvatar: CircleImageView = mView.imageViewAvatar
         val ivLike: ImageView = mView.imageViewLike
 
         override fun toString(): String {

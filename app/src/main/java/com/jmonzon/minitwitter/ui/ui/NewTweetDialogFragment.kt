@@ -19,12 +19,13 @@ import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.MyApp
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
 import com.jmonzon.minitwitter.ui.ui.tweetList.TweetListViewModel
+import de.hdodenhof.circleimageview.CircleImageView
 
 class NewTweetDialogFragment : DialogFragment() {
 
     private lateinit var createTweetButton: Button
     private lateinit var ivClose: ImageView
-    private lateinit var ivAvatar: ImageView
+    private lateinit var ivAvatar: CircleImageView
     private lateinit var tvMessage: TextView
     private lateinit var dialogNewTweet: Dialog
 
@@ -52,7 +53,7 @@ class NewTweetDialogFragment : DialogFragment() {
         val photoUrl: String =
             SharedPreferencesManager().getStringValueSharedPreferences(Constants.photoUrl)
 
-        if (!photoUrl.isEmpty()) {
+        if (photoUrl !== "") {
             Glide.with(MyApp.getContext())
                 .load(Constants.baseUrlPhotos + photoUrl)
                 .into(ivAvatar)

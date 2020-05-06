@@ -1,9 +1,7 @@
 package com.jmonzon.minitwitter.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,11 +15,12 @@ import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.MyApp
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
 import com.jmonzon.minitwitter.ui.ui.NewTweetDialogFragment
+import de.hdodenhof.circleimageview.CircleImageView
 
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var fab : FloatingActionButton
-    private lateinit var ivAvatar : ImageView
+    private lateinit var ivAvatar : CircleImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -59,7 +58,7 @@ class DashboardActivity : AppCompatActivity() {
         val photoUrl: String =
             SharedPreferencesManager().getStringValueSharedPreferences(Constants.photoUrl)
 
-        if (!photoUrl.isEmpty()) {
+        if (photoUrl != "") {
             Glide.with(MyApp.getContext())
                 .load(Constants.baseUrlPhotos + photoUrl)
                 .into(ivAvatar)
