@@ -14,6 +14,7 @@ import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.models.Tweet
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
+import com.jmonzon.minitwitter.ui.ui.tweetList.TweetListViewModel
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_tweet.view.*
 
@@ -53,6 +54,11 @@ private var context : Context
             .into(holder.ivLike)
         holder.tvLikeCount.setTextColor(context.resources.getColor(android.R.color.black))
         holder.tvLikeCount.setTypeface(null, Typeface.BOLD)
+
+        // Implement funcionality when press in like icon
+        holder.ivLike.setOnClickListener{
+            TweetListViewModel.tweetRepository.likeTweet(item.id)
+        }
 
         //It tweet have a like from this user we paint a pink heart
         for (like in item.likes) {

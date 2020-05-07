@@ -75,7 +75,51 @@ class TweetRepository {
                     val listAux: ArrayList<Tweet> = ArrayList()
                     listAux.add(response.body()!!)
                     for (tweet in allTweetsRecovered.value!!) {
+                        //Add rest of tweet in the list
                         listAux.add(Tweet(tweet))
+                    }
+                    //Set the list using the MutableLiveData for refrest the recyclerView
+                    allTweetsRecovered.value = listAux
+                } else {
+                    Toast.makeText(
+                        MyApp.getContext(),
+                        "Algo ha ido mal, por favor intentalo más tarde",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Tweet>, t: Throwable) {
+                Toast.makeText(
+                    MyApp.getContext(),
+                    "Erro en la conexión, ha ocurrido un error al crear el tweet",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+    }
+
+    fun likeTweet(idTweet: Int) {
+
+        val call: Call<Tweet> = authMiniTwitterService.likeTweet(idTweet)
+
+        call.enqueue(object : Callback<Tweet> {
+            override fun onResponse(
+                call: Call<Tweet>,
+                response: Response<Tweet>
+            ) {
+                if (response.isSuccessful) {
+                    //Add in first place created tweet
+                    val listAux: ArrayList<Tweet> = ArrayList()
+                    for (tweet in allTweetsRecovered.value!!) {
+                        //If found the element with the same ID it mean than we press on it and
+                        // overwrite the element in the list
+                        if(tweet.id == response.body()?.id) {
+                            listAux.add(response.body()!!)
+                        }else{
+                            listAux.add(Tweet(tweet))
+                        }
                     }
                     allTweetsRecovered.value = listAux
                 } else {
