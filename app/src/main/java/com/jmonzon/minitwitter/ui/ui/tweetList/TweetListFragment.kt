@@ -20,11 +20,9 @@ import com.jmonzon.minitwitter.models.Tweet
 
 class TweetListFragment : Fragment() {
 
-    private var columnCount = 1
     private lateinit var tweetListViewModel: TweetListViewModel
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +48,7 @@ class TweetListFragment : Fragment() {
         return view
     }
 
+    //Function for recoverty tweets from the list saved
     private fun loadTweets(context: Context) {
         tweetListViewModel.getTweets()
             .observe(viewLifecycleOwner, Observer {
@@ -57,6 +56,7 @@ class TweetListFragment : Fragment() {
             })
     }
 
+    //Function for recovery tweets from repository when use swipeRefresh
     private fun loadNewTweets(context: Context) {
         tweetListViewModel.getNewTweets()
             .observe(viewLifecycleOwner, Observer {

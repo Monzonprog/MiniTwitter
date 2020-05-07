@@ -24,6 +24,10 @@ class TweetListViewModel : ViewModel() {
         tweetRepository.createTweet(message)
     }
 
+    fun likeTweet(idTweet: Int){
+        tweetRepository.likeTweet(idTweet)
+    }
+
 
 
 }
