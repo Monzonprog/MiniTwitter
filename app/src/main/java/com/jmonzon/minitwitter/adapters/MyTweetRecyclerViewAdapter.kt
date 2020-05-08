@@ -57,7 +57,7 @@ private var context : Context
 
         // Implement funcionality when press in like icon
         holder.ivLike.setOnClickListener{
-            TweetListViewModel.tweetRepository.likeTweet(item.id)
+            TweetListViewModel().likeTweet(item.id)
         }
 
         //It tweet have a like from this user we paint a pink heart

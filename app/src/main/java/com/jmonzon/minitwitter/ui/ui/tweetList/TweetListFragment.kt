@@ -3,19 +3,18 @@ package com.jmonzon.minitwitter.ui.ui.tweetList
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.adapters.MyTweetRecyclerViewAdapter
-import com.jmonzon.minitwitter.models.Tweet
 
 
 class TweetListFragment : Fragment() {
@@ -23,6 +22,7 @@ class TweetListFragment : Fragment() {
     private lateinit var tweetListViewModel: TweetListViewModel
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
+    private var tweetListType: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +36,32 @@ class TweetListFragment : Fragment() {
             false
         )
 
+        //Recover argument for know what option is selected
+        arguments.let {
+            //Without SafeArgs
+            tweetListType = requireArguments().getInt("TWEET_LIST_TYPE")
+            Log.i("TWEET_LIST_TYPE => ", tweetListType.toString())
+        }
+
         recyclerView = view.findViewById(R.id.list)
         swipeRefreshLayout = view.findViewById(R.id.swiperefreshlayout)
         swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.colorAzul))
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = true
-            loadNewTweets(view.context)
+            if (tweetListType == 1) {
+                loadNewTweets(view.context)
+            } else {
+                loadNewFavTweets(view.context)
+            }
         }
 
-        loadTweets(view.context)
+        if (tweetListType == 1) {
+            loadTweets(view.context)
+        } else {
+            loadFavTweets(view.context)
+        }
+
+
         return view
     }
 
@@ -54,6 +71,24 @@ class TweetListFragment : Fragment() {
             .observe(viewLifecycleOwner, Observer {
                 recyclerView.adapter = MyTweetRecyclerViewAdapter(it, context)
             })
+    }
+
+    //Function for recovery favorites tweets
+    private fun loadFavTweets(context: Context) {
+        tweetListViewModel.getFavTweets()
+            .observe(viewLifecycleOwner, Observer {
+            recyclerView.adapter = MyTweetRecyclerViewAdapter(it, context)
+        })
+    }
+
+    private fun loadNewFavTweets(context: Context) {
+        tweetListViewModel.getNewFavTweets()
+            .observe(viewLifecycleOwner, Observer {
+                recyclerView.adapter = MyTweetRecyclerViewAdapter(it, context)
+                swipeRefreshLayout.isRefreshing = false
+            })
+        tweetListViewModel.getNewFavTweets().removeObservers(this)
+
     }
 
     //Function for recovery tweets from repository when use swipeRefresh

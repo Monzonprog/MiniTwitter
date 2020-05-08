@@ -8,12 +8,22 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.jmonzon.minitwitter.ui.ui.tweetList.TweetListFragment"
-        tools:layout="@layout/fragment_tweet_list" />
+        tools:layout="@layout/fragment_tweet_list">
+        <argument
+            android:name="TWEET_LIST_TYPE"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tweet_like"
-        android:name="com.jmonzon.minitwitter.ui.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.jmonzon.minitwitter.ui.ui.tweetList.TweetListFragment"
+        tools:layout="@layout/fragment_tweet_list">
+        <argument
+            android:name="TWEET_LIST_TYPE"
+            android:defaultValue="2"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
