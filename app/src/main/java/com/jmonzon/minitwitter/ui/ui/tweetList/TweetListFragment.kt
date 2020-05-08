@@ -13,8 +13,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.adapters.MyTweetRecyclerViewAdapter
+import com.jmonzon.minitwitter.ui.DashboardActivity
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
 class TweetListFragment : Fragment() {
@@ -36,6 +39,9 @@ class TweetListFragment : Fragment() {
             false
         )
 
+        //Instanciate FAB from dashboard activity
+        val fab: FloatingActionButton = requireActivity().findViewById(R.id.fab)
+
         //Recover argument for know what option is selected
         arguments.let {
             //Without SafeArgs
@@ -56,8 +62,12 @@ class TweetListFragment : Fragment() {
         }
 
         if (tweetListType == 1) {
+            //If we are in principal screen we show FAB for write a new tweet
+            fab.show()
             loadTweets(view.context)
         } else {
+            //If we are in fav tweets screen don´t show the FAB
+            fab.hide()
             loadFavTweets(view.context)
         }
 
