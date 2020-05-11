@@ -41,4 +41,8 @@ class TweetListViewModel : ViewModel() {
     fun likeTweet(idTweet: Int) {
         tweetRepository.likeTweet(idTweet)
     }
+
+    fun deleteTweet(idTweet: Int) {
+        tweetRepository.deleteTweet(idTweet)
+    }
 }

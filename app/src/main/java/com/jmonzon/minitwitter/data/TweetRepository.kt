@@ -7,6 +7,7 @@ import com.jmonzon.minitwitter.common.MyApp
 import com.jmonzon.minitwitter.models.Likes
 import com.jmonzon.minitwitter.models.RequestCreateTweet
 import com.jmonzon.minitwitter.models.Tweet
+import com.jmonzon.minitwitter.models.TweetDeleted
 import com.jmonzon.minitwitter.retrofit.AuthMiniTwitterClient
 import com.jmonzon.minitwitter.retrofit.AuthMiniTwitterService
 import retrofit2.Call
@@ -128,6 +129,40 @@ class TweetRepository {
         })
     }
 
+    fun deleteTweet(idTweet: Int) {
+        val call: Call<TweetDeleted> = authMiniTwitterService.deleteTweet(idTweet)
+
+        call.enqueue(object : Callback<TweetDeleted>{
+
+            override fun onResponse(call: Call<TweetDeleted>, response: Response<TweetDeleted>) {
+                if(response.isSuccessful){
+                    val listAux: ArrayList<Tweet> = ArrayList()
+                    for (tweet in allTweetsRecovered.value!!){
+                        if(tweet.id != idTweet){
+                            listAux.add(tweet)
+                        }
+                    }
+                    allTweetsRecovered.value = listAux
+                    getFavsTweets()
+                }else{
+                    Toast.makeText(
+                        MyApp.getContext(),
+                        "Algo ha ido mal, por favor intentalo más tarde",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<TweetDeleted>, t: Throwable) {
+                Toast.makeText(
+                    MyApp.getContext(),
+                    "Erro en la conexión, ha ocurrido un error al borrar el tweet",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
     fun likeTweet(idTweet: Int) {
 
         val call: Call<Tweet> = authMiniTwitterService.likeTweet(idTweet)
@@ -163,7 +198,7 @@ class TweetRepository {
             override fun onFailure(call: Call<Tweet>, t: Throwable) {
                 Toast.makeText(
                     MyApp.getContext(),
-                    "Erro en la conexión, ha ocurrido un error al crear el tweet",
+                    "Erro en la conexión, ha ocurrido un error al marcar el tweet como favorito",
                     Toast.LENGTH_SHORT
                 ).show()
             }

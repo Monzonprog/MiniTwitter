@@ -2,6 +2,7 @@ package com.jmonzon.minitwitter.retrofit
 
 import com.jmonzon.minitwitter.models.RequestCreateTweet
 import com.jmonzon.minitwitter.models.Tweet
+import com.jmonzon.minitwitter.models.TweetDeleted
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -15,4 +16,7 @@ interface AuthMiniTwitterService {
 
     @POST("tweets/like/{idTweet}")
     fun likeTweet(@Path("idTweet")idTweet: Int): Call<Tweet>
+
+    @DELETE("tweets/{idTweet}")
+    fun deleteTweet(@Path("idTweet")idTweet: Int): Call<TweetDeleted>
 }
