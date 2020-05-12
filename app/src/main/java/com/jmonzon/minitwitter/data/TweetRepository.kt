@@ -121,7 +121,7 @@ class TweetRepository {
             override fun onFailure(call: Call<Tweet>, t: Throwable) {
                 Toast.makeText(
                     MyApp.getContext(),
-                    "Erro en la conexión, ha ocurrido un error al crear el tweet",
+                    "Error en la conexión, ha ocurrido un error al crear el tweet",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -156,7 +156,7 @@ class TweetRepository {
             override fun onFailure(call: Call<TweetDeleted>, t: Throwable) {
                 Toast.makeText(
                     MyApp.getContext(),
-                    "Erro en la conexión, ha ocurrido un error al borrar el tweet",
+                    "Error en la conexión, ha ocurrido un error al borrar el tweet",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -198,7 +198,7 @@ class TweetRepository {
             override fun onFailure(call: Call<Tweet>, t: Throwable) {
                 Toast.makeText(
                     MyApp.getContext(),
-                    "Erro en la conexión, ha ocurrido un error al marcar el tweet como favorito",
+                    "Error en la conexión, ha ocurrido un error al marcar el tweet como favorito",
                     Toast.LENGTH_SHORT
                 ).show()
             }
