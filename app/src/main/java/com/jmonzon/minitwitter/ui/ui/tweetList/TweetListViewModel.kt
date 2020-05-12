@@ -1,10 +1,13 @@
 package com.jmonzon.minitwitter.ui.ui.tweetList
 
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jmonzon.minitwitter.data.TweetRepository
 import com.jmonzon.minitwitter.models.Tweet
+import com.jmonzon.minitwitter.ui.ui.BottonModalTweetFragment
 
 class TweetListViewModel : ViewModel() {
 
@@ -44,5 +47,10 @@ class TweetListViewModel : ViewModel() {
 
     fun deleteTweet(idTweet: Int) {
         tweetRepository.deleteTweet(idTweet)
+    }
+
+    fun openDialogTweetMenu(context: Context, idTweet: Int){
+        val bottonModalTweetFragment = BottonModalTweetFragment(idTweet)
+        bottonModalTweetFragment.show((context as AppCompatActivity).supportFragmentManager, "BottonModalTweetFragment")
     }
 }
