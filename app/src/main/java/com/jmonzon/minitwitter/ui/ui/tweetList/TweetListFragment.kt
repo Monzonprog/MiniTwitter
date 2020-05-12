@@ -54,6 +54,8 @@ class TweetListFragment : Fragment() {
         swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.colorAzul))
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = true
+            //Depending if we are in the list tweet or fav tweet swipeRefreshLayout reload
+            //a list or other
             if (tweetListType == 1) {
                 loadNewTweets(view.context)
             } else {
@@ -70,8 +72,6 @@ class TweetListFragment : Fragment() {
             fab.hide()
             loadFavTweets(view.context)
         }
-
-
         return view
     }
 
@@ -91,6 +91,7 @@ class TweetListFragment : Fragment() {
         })
     }
 
+    //Function for recovery favorites tweets from repository when use swipeRefresh
     private fun loadNewFavTweets(context: Context) {
         tweetListViewModel.getNewFavTweets()
             .observe(viewLifecycleOwner, Observer {
