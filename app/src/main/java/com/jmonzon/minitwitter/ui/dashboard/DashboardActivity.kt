@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.ui
+package com.jmonzon.minitwitter.ui.dashboard
 
 import android.os.Bundle
 import android.view.View
@@ -14,7 +14,6 @@ import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.MyApp
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
-import com.jmonzon.minitwitter.ui.ui.NewTweetDialogFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
 class DashboardActivity : AppCompatActivity() {

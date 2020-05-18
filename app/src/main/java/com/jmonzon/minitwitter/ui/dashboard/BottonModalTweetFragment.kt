@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.ui.ui
+package com.jmonzon.minitwitter.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 import com.jmonzon.minitwitter.R
-import com.jmonzon.minitwitter.ui.ui.tweetList.TweetListViewModel
+import com.jmonzon.minitwitter.ui.dashboard.tweetList.TweetListViewModel
 
 class BottonModalTweetFragment(private var idTweet: Int) : BottomSheetDialogFragment() {
 

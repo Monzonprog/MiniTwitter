@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.ui
+package com.jmonzon.minitwitter.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,6 +17,7 @@ import com.jmonzon.minitwitter.retrofit.MiniTwitterService
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.MyApp
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
+import com.jmonzon.minitwitter.ui.dashboard.DashboardActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

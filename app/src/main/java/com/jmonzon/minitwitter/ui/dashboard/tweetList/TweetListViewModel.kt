@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.ui.ui.tweetList
+package com.jmonzon.minitwitter.ui.dashboard.tweetList
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jmonzon.minitwitter.data.TweetRepository
 import com.jmonzon.minitwitter.models.Tweet
-import com.jmonzon.minitwitter.ui.ui.BottonModalTweetFragment
+import com.jmonzon.minitwitter.ui.dashboard.BottonModalTweetFragment
 
 class TweetListViewModel : ViewModel() {
 

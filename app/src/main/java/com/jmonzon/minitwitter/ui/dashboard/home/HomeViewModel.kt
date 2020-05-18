@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.ui.ui.home
+package com.jmonzon.minitwitter.ui.dashboard.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

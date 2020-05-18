@@ -14,7 +14,7 @@ import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
 import com.jmonzon.minitwitter.models.Tweet
-import com.jmonzon.minitwitter.ui.ui.tweetList.TweetListViewModel
+import com.jmonzon.minitwitter.ui.dashboard.tweetList.TweetListViewModel
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_tweet.view.*
 

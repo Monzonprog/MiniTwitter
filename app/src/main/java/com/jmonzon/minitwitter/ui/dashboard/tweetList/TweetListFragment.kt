@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.ui.ui.tweetList
+package com.jmonzon.minitwitter.ui.dashboard.tweetList
 
 
 import android.content.Context
@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,8 +15,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.adapters.MyTweetRecyclerViewAdapter
-import com.jmonzon.minitwitter.ui.DashboardActivity
-import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
 class TweetListFragment : Fragment() {

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.jmonzon.minitwitter.ui.ui.tweetList.TweetListFragment"
+        android:name="com.jmonzon.minitwitter.ui.dashboard.tweetList.TweetListFragment"
         tools:layout="@layout/fragment_tweet_list">
         <argument
             android:name="TWEET_LIST_TYPE"
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_tweet_like"
-        android:name="com.jmonzon.minitwitter.ui.ui.tweetList.TweetListFragment"
+        android:name="com.jmonzon.minitwitter.ui.dashboard.tweetList.TweetListFragment"
         tools:layout="@layout/fragment_tweet_list">
         <argument
             android:name="TWEET_LIST_TYPE"
@@ -27,6 +27,6 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.jmonzon.minitwitter.ui.ui.notifications.NotificationsFragment"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.jmonzon.minitwitter.ui.dashboard.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
