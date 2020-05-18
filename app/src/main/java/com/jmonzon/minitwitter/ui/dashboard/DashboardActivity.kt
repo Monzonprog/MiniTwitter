@@ -14,6 +14,7 @@ import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.MyApp
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
+import com.jmonzon.minitwitter.ui.dashboard.tweetList.NewTweetDialogFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
 class DashboardActivity : AppCompatActivity() {
@@ -43,7 +44,8 @@ class DashboardActivity : AppCompatActivity() {
 
 
         fab.setOnClickListener(View.OnClickListener {
-            val dialogFragment : NewTweetDialogFragment = NewTweetDialogFragment()
+            val dialogFragment : NewTweetDialogFragment =
+                NewTweetDialogFragment()
             dialogFragment.show(supportFragmentManager, "NewTweetDialogFragment")
         })
     }

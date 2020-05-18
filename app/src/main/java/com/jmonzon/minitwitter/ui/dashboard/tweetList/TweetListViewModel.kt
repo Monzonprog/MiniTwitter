@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jmonzon.minitwitter.data.TweetRepository
 import com.jmonzon.minitwitter.models.Tweet
-import com.jmonzon.minitwitter.ui.dashboard.BottonModalTweetFragment
 
 class TweetListViewModel : ViewModel() {
 
@@ -50,7 +49,10 @@ class TweetListViewModel : ViewModel() {
     }
 
     fun openDialogTweetMenu(context: Context, idTweet: Int){
-        val bottonModalTweetFragment = BottonModalTweetFragment(idTweet)
+        val bottonModalTweetFragment =
+            BottonModalTweetFragment(
+                idTweet
+            )
         bottonModalTweetFragment.show((context as AppCompatActivity).supportFragmentManager, "BottonModalTweetFragment")
     }
 }

@@ -24,7 +24,7 @@ class ProfileFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
         profileViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = "Notificaciones"
+            textView.text = "Profile"
         })
         return root
     }

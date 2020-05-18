@@ -1,4 +1,4 @@
-package com.jmonzon.minitwitter.ui.dashboard
+package com.jmonzon.minitwitter.ui.dashboard.tweetList
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -18,7 +18,6 @@ import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.MyApp
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
-import com.jmonzon.minitwitter.ui.dashboard.tweetList.TweetListViewModel
 import de.hdodenhof.circleimageview.CircleImageView
 
 class NewTweetDialogFragment : DialogFragment() {
