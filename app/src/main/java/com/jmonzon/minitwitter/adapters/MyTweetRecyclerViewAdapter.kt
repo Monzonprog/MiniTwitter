@@ -11,16 +11,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jmonzon.minitwitter.R
-import com.jmonzon.minitwitter.models.Tweet
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.SharedPreferencesManager
+import com.jmonzon.minitwitter.models.Tweet
 import com.jmonzon.minitwitter.ui.ui.tweetList.TweetListViewModel
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_tweet.view.*
 
 class MyTweetRecyclerViewAdapter(
     private var mValues: List<Tweet>,
-private var context : Context
+    private var context: Context
 ) : RecyclerView.Adapter<MyTweetRecyclerViewAdapter.ViewHolder>() {
 
     private var userName: String =
@@ -56,7 +56,7 @@ private var context : Context
         holder.tvLikeCount.setTypeface(null, Typeface.BOLD)
 
         // Implement funcionality when press in like icon
-        holder.ivLike.setOnClickListener{
+        holder.ivLike.setOnClickListener {
             TweetListViewModel().likeTweet(item.id)
         }
 
@@ -71,6 +71,15 @@ private var context : Context
                 break
             }
         }
+
+        //If we writed the tweet this IV will be show for call to dialogTweetMenu
+        holder.ivShowMenu.visibility = View.GONE
+        if (item.user.username == userName) {
+            holder.ivShowMenu.visibility = View.VISIBLE
+            holder.ivShowMenu.setOnClickListener {
+                TweetListViewModel().openDialogTweetMenu(it.context, item.id)
+            }
+        }
     }
 
     override fun getItemCount(): Int = mValues.size
@@ -81,9 +90,11 @@ private var context : Context
         val tvLikeCount: TextView = mView.textViewLikesCount
         val ivAvatar: CircleImageView = mView.imageViewAvatar
         val ivLike: ImageView = mView.imageViewLike
+        val ivShowMenu: ImageView = mView.imageViewShowMenu
 
         override fun toString(): String {
             return ""
         }
     }
 }
+
