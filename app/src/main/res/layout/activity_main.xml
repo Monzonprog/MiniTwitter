@@ -60,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@android:color/white"
+        android:backgroundTintMode="@android:color/white"
         android:text="@string/btn_login"
         android:textColor="@color/colorAzul"
         app:layout_constraintBottom_toTopOf="@+id/textViewSignUp"
