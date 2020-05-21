@@ -1,6 +1,7 @@
 package com.jmonzon.minitwitter.retrofit
 
 import com.jmonzon.minitwitter.models.RequestCreateTweet
+import com.jmonzon.minitwitter.models.ResponseUserProfile
 import com.jmonzon.minitwitter.models.Tweet
 import com.jmonzon.minitwitter.models.TweetDeleted
 import retrofit2.Call
@@ -19,4 +20,7 @@ interface AuthMiniTwitterService {
 
     @DELETE("tweets/{idTweet}")
     fun deleteTweet(@Path("idTweet")idTweet: Int): Call<TweetDeleted>
+
+    @GET("users/profile")
+    fun getUserProfile():Call<ResponseUserProfile>
 }
