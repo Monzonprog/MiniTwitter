@@ -9,6 +9,7 @@ import retrofit2.http.*
 
 interface AuthMiniTwitterService {
 
+    //Tweets
     @GET("tweets/all")
     fun getAllTweets(): Call<List<Tweet>>
 
@@ -21,6 +22,11 @@ interface AuthMiniTwitterService {
     @DELETE("tweets/{idTweet}")
     fun deleteTweet(@Path("idTweet")idTweet: Int): Call<TweetDeleted>
 
+    //Users
     @GET("users/profile")
     fun getUserProfile():Call<ResponseUserProfile>
+
+    @PUT("users/profile")
+    fun updateUserProfile(@Body responseUserProfile: ResponseUserProfile):Call<ResponseUserProfile>
+
 }
