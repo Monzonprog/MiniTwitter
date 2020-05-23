@@ -34,5 +34,7 @@
     <string name="current_password">Contraseña actual</string>
     <string name="button_save">Guardar</string>
     <string name="change_password">Modificar contraseña</string>
+    <string name="website">Website</string>
+    <string name="descripcion_e_intereses">Descripción e intereses</string>
 
 </resources>
