@@ -8,9 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jmonzon.minitwitter.R
+import com.jmonzon.minitwitter.common.Constants
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileFragment : Fragment() {
@@ -20,6 +23,8 @@ class ProfileFragment : Fragment() {
     private lateinit var etUsername: EditText
     private lateinit var etEmail: EditText
     private lateinit var etCurrentPassword: EditText
+    private lateinit var etWebsite: EditText
+    private lateinit var etDescription: EditText
     private lateinit var btSave: Button
     private lateinit var btChangePassword: Button
 
@@ -40,7 +45,18 @@ class ProfileFragment : Fragment() {
         findViews(view)
         createEvents()
 
-
+        //Observe and wait response from API
+        profileViewModel.getProfile().observe(viewLifecycleOwner, Observer {
+            etUsername.setText(it.username)
+            etEmail.setText(it.email)
+            etWebsite.setText(it.website)
+            etDescription.setText(it.descripcion)
+            if (it.photoUrl != "") {
+                Glide.with(this)
+                    .load(Constants.baseUrlPhotos + it.photoUrl)
+                    .into(ivAvatar)
+            }
+        })
 
         return view
     }
@@ -52,6 +68,8 @@ class ProfileFragment : Fragment() {
         etCurrentPassword = view.findViewById(R.id.editTextCurrentPassword)
         btSave = view.findViewById(R.id.buttonSave)
         btChangePassword = view.findViewById(R.id.buttonChangePassword)
+        etWebsite = view.findViewById(R.id.editTextWebSite)
+        etDescription = view.findViewById(R.id.editTextDescription)
     }
 
     private fun createEvents() {
