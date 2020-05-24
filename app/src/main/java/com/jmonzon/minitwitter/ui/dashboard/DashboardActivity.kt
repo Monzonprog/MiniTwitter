@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jmonzon.minitwitter.R
@@ -60,8 +61,12 @@ class DashboardActivity : AppCompatActivity() {
             SharedPreferencesManager().getStringValueSharedPreferences(Constants.photoUrl)
 
         if (photoUrl != "") {
-            Glide.with(MyApp.getContext())
+            Glide.with(this)
                 .load(Constants.baseUrlPhotos + photoUrl)
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .centerCrop()
                 .into(ivAvatar)
         }
     }
