@@ -53,7 +53,7 @@ class NewTweetDialogFragment : DialogFragment() {
             SharedPreferencesManager().getStringValueSharedPreferences(Constants.photoUrl)
 
         if (photoUrl !== "") {
-            Glide.with(MyApp.getContext())
+            Glide.with(this)
                 .load(Constants.baseUrlPhotos + photoUrl)
                 .into(ivAvatar)
         }
