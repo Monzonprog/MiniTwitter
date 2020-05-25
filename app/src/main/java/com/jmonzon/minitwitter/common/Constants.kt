@@ -14,5 +14,8 @@ class Constants {
        const val active : String = "ACTIVE_VALUE"
        const val created : String = "CREATED_VALUE"
 
+        //StartActivityForResult
+        const val SELECT_PHOTO_GALLERY: Int = 1
+
     }
 }

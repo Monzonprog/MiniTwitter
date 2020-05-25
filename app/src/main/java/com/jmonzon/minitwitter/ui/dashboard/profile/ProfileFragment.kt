@@ -16,7 +16,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.models.RequestUserProfile
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.listener.single.CompositePermissionListener
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
+import com.karumi.dexter.listener.single.PermissionListener
 import de.hdodenhof.circleimageview.CircleImageView
+import java.util.jar.Manifest
 
 class ProfileFragment : Fragment() {
 
@@ -29,7 +34,8 @@ class ProfileFragment : Fragment() {
     private lateinit var etDescription: EditText
     private lateinit var btSave: Button
     private lateinit var btChangePassword: Button
-    var loadingData: Boolean = true
+    private lateinit var allPermissionsListener: PermissionListener
+    private var loadingData: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +68,7 @@ class ProfileFragment : Fragment() {
                     .centerCrop()
                     .into(ivAvatar)
             }
-            if(!loadingData) {
+            if (!loadingData) {
                 Toast.makeText(context, "Datos guardados correctamente", Toast.LENGTH_SHORT)
                     .show()
                 btSave.isEnabled = true
@@ -111,7 +117,11 @@ class ProfileFragment : Fragment() {
                             etWebsite.text.toString()
                         )
                         profileViewModel.updateProfile(requestUserProfile)
-                        Toast.makeText(context, "Enviando información al servidor", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "Enviando información al servidor",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         btSave.isEnabled = false
                         loadingData = false
                     }
@@ -121,10 +131,27 @@ class ProfileFragment : Fragment() {
                 Toast.makeText(context, "Botón cambiar clave", Toast.LENGTH_SHORT).show()
             }
             R.id.imageViewAvatar -> {
-                Toast.makeText(context, "Se seleccionará la foto", Toast.LENGTH_SHORT).show()
-
+                checkPermissions()
             }
         }
+    }
+
+    private fun checkPermissions() {
+        val dialogOnDeniedPermissionListener: PermissionListener = DialogOnDeniedPermissionListener.Builder.withContext(activity)
+            .withTitle("Permisos")
+            .withMessage("Los permisos solicitados son necesarios para poder seleccionar una foto de perfil")
+            .withButtonText("Aceptar")
+            .withIcon(R.mipmap.ic_launcher)
+            .build()
+
+        allPermissionsListener = CompositePermissionListener(
+                activity as PermissionListener,
+                dialogOnDeniedPermissionListener)
+
+        Dexter.withContext(activity)
+            .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            .withListener(allPermissionsListener)
+            .check()
     }
 }
 
