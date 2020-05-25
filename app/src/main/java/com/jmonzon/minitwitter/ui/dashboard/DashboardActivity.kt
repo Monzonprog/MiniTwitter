@@ -63,8 +63,8 @@ class DashboardActivity : AppCompatActivity() {
         if (photoUrl != "") {
             Glide.with(this)
                 .load(Constants.baseUrlPhotos + photoUrl)
-                .dontAnimate()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .dontAnimate() //Not recommended to use with CircleImageView
+                .diskCacheStrategy(DiskCacheStrategy.NONE) //Don`t use cache
                 .skipMemoryCache(true)
                 .centerCrop()
                 .into(ivAvatar)

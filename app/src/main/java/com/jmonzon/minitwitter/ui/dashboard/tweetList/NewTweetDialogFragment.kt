@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jmonzon.minitwitter.R
 import com.jmonzon.minitwitter.common.Constants
 import com.jmonzon.minitwitter.common.MyApp
@@ -55,6 +56,9 @@ class NewTweetDialogFragment : DialogFragment() {
         if (photoUrl !== "") {
             Glide.with(this)
                 .load(Constants.baseUrlPhotos + photoUrl)
+                .dontAnimate() //Not recommended to use with CircleImageView
+                .diskCacheStrategy(DiskCacheStrategy.NONE) //Don`t use cache
+                .skipMemoryCache(true)
                 .into(ivAvatar)
         }
     }
