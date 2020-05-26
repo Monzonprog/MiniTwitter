@@ -113,7 +113,8 @@ class ProfileRepository {
                 if (response.isSuccessful) {
                     SharedPreferencesManager().setStringValueSharedPreferences(
                         Constants.photoUrl,
-                        response.body()!!.filename)
+                        response.body()!!.filename
+                    )
                     photoProfile.value = response.body()!!.filename
                 } else {
                     Toast.makeText(
@@ -123,12 +124,14 @@ class ProfileRepository {
                     ).show()
                 }
             }
+
             override fun onFailure(call: Call<ResponseUploadPhoto>, t: Throwable) {
                 Toast.makeText(
                     MyApp.getContext(),
                     "Error en la conexión",
                     Toast.LENGTH_LONG
-                ).show()            }
+                ).show()
+            }
         })
 
     }
