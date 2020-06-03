@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jmonzon.minitwitter.R
@@ -52,7 +53,7 @@ class MyTweetRecyclerViewAdapter(
         Glide.with(context)
             .load(R.drawable.ic_like)
             .into(holder.ivLike)
-        holder.tvLikeCount.setTextColor(context.resources.getColor(android.R.color.black))
+        holder.tvLikeCount.setTextColor(ContextCompat.getColor(context, android.R.color.black))
         holder.tvLikeCount.setTypeface(null, Typeface.BOLD)
 
         // Implement funcionality when press in like icon
@@ -66,7 +67,7 @@ class MyTweetRecyclerViewAdapter(
                 Glide.with(context)
                     .load(R.drawable.ic_like_pink)
                     .into(holder.ivLike)
-                holder.tvLikeCount.setTextColor(context.resources.getColor(R.color.pink))
+                holder.tvLikeCount.setTextColor(ContextCompat.getColor(context, R.color.pink))
                 holder.tvLikeCount.setTypeface(null, Typeface.BOLD)
                 break
             }
