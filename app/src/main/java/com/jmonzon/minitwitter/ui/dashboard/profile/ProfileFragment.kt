@@ -65,7 +65,6 @@ class ProfileFragment : Fragment() {
                     .dontAnimate() //Not recommended to use with CircleImageView
                     .diskCacheStrategy(DiskCacheStrategy.NONE) //Don`t use cache
                     .skipMemoryCache(true)
-                    .centerCrop()
                     .into(ivAvatar)
             }
             if (!loadingData) {
@@ -73,6 +72,16 @@ class ProfileFragment : Fragment() {
                     .show()
                 btSave.isEnabled = true
             }
+        })
+
+        profileViewModel.getPhotoUrl().observe(viewLifecycleOwner, Observer {
+            Glide.with(this)
+                .load(Constants.baseUrlPhotos + it)
+                .dontAnimate() //Not recommended to use with CircleImageView
+                .diskCacheStrategy(DiskCacheStrategy.NONE) //Don`t use cache
+                .skipMemoryCache(true)
+                .into(ivAvatar)
+
         })
 
         return view

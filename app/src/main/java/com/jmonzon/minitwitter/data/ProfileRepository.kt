@@ -35,6 +35,9 @@ class ProfileRepository {
         userProfile = getProfile()
         photoProfile = MutableLiveData()
     }
+    fun getphotoProfile(): MutableLiveData<String> {
+        return photoProfile
+    }
 
     fun getProfile(): MutableLiveData<ResponseUserProfile> {
 

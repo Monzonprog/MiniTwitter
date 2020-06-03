@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -68,6 +68,16 @@ class DashboardActivity : AppCompatActivity(), PermissionListener {
                 NewTweetDialogFragment()
             dialogFragment.show(supportFragmentManager, "NewTweetDialogFragment")
         }
+
+        profileViewModel.getPhotoUrl().observe(this, Observer {
+                Glide.with(this)
+                    .load(Constants.baseUrlPhotos + it)
+                    .dontAnimate() //Not recommended to use with CircleImageView
+                    .diskCacheStrategy(DiskCacheStrategy.NONE) //Don`t use cache
+                    .skipMemoryCache(true)
+                    .into(ivAvatar)
+
+        })
     }
 
     private fun findViews() {
@@ -85,7 +95,6 @@ class DashboardActivity : AppCompatActivity(), PermissionListener {
                 .dontAnimate() //Not recommended to use with CircleImageView
                 .diskCacheStrategy(DiskCacheStrategy.NONE) //Don`t use cache
                 .skipMemoryCache(true)
-                .centerCrop()
                 .into(ivAvatar)
         }
     }
@@ -107,15 +116,12 @@ class DashboardActivity : AppCompatActivity(), PermissionListener {
                         val outputStream = FileOutputStream(file)
                         IOUtils.copy(inputStream, outputStream)
                         profileViewModel.uploadPhoto(file)
-
                     }
                 }
             }
         }
     }
-
     private fun getFileName(fileUri: Uri): String {
-
         var name = ""
         val returnCursor = contentResolver.query(fileUri, null, null, null, null)
         if (returnCursor != null) {

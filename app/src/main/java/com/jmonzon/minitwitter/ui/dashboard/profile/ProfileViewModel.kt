@@ -12,10 +12,15 @@ class ProfileViewModel : ViewModel() {
     companion object {
         private val profileRepository: ProfileRepository = ProfileRepository()
         var profile: LiveData<ResponseUserProfile> = profileRepository.getProfile()
+        var photoProfile: LiveData<String> = profileRepository.getphotoProfile()
     }
 
     fun getProfile(): LiveData<ResponseUserProfile>{
         return profile
+    }
+
+    fun getPhotoUrl(): LiveData<String>{
+        return photoProfile
     }
 
     fun updateProfile(requestUserProfile: RequestUserProfile) {
