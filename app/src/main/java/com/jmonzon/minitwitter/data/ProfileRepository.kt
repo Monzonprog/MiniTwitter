@@ -101,7 +101,6 @@ class ProfileRepository {
 
     fun uploadPhoto(file: File) {
 
-        //var file = File(photoPath)
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("image/jpg"), file)
         val call: Call<ResponseUploadPhoto> = authMiniTwitterService.uploadProfilePhoto(requestBody)
 
@@ -116,12 +115,14 @@ class ProfileRepository {
                         response.body()!!.filename
                     )
                     photoProfile.value = response.body()!!.filename
+                    Log.i("Subida de foto: ", "Correcta")
                 } else {
                     Toast.makeText(
                         MyApp.getContext(),
                         "No se ha podido subir la fotografía",
                         Toast.LENGTH_LONG
                     ).show()
+                    Log.e("Subida de foto: ", "Error")
                 }
             }
 

@@ -34,7 +34,6 @@ import org.apache.commons.io.IOUtils
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.InputStream
 
 class DashboardActivity : AppCompatActivity(), PermissionListener {
 
@@ -97,15 +96,7 @@ class DashboardActivity : AppCompatActivity(), PermissionListener {
         if (resultCode != Activity.RESULT_CANCELED) {
             if (requestCode == Constants.SELECT_PHOTO_GALLERY) {
                 if (data != null) {
-                    var imagenSeleccionada: Uri = data.data!!
-                    /*val parcelFileDescriptor = this.contentResolver.openFileDescriptor(imagenSeleccionada, "r", null)
-                    val inputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
-
-                    val file = File(this.cacheDir, getFileName(imagenSeleccionada))
-                    val outputStream = FileOutputStream(file)
-                    inputStream.copyTo(outputStream)
-                    profileViewModel.uploadPhoto(file)
-*/
+                    val imagenSeleccionada: Uri = data.data!!
                     val parcelFileDescriptor =
                         this.contentResolver.openFileDescriptor(imagenSeleccionada, "r", null)
 
