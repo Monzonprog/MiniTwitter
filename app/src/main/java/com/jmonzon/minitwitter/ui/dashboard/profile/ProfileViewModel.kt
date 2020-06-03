@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.jmonzon.minitwitter.data.ProfileRepository
 import com.jmonzon.minitwitter.models.RequestUserProfile
 import com.jmonzon.minitwitter.models.ResponseUserProfile
+import java.io.File
 
 class ProfileViewModel : ViewModel() {
 
@@ -21,7 +22,7 @@ class ProfileViewModel : ViewModel() {
         profileRepository.updateProfile(requestUserProfile)
     }
 
-    fun uploadPhoto (photo: String){
+    fun uploadPhoto (photo: File){
         profileRepository.uploadPhoto(photo)
     }
 }

@@ -2,10 +2,10 @@ package com.jmonzon.minitwitter.ui.dashboard
 
 import android.app.Activity
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -30,6 +30,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import de.hdodenhof.circleimageview.CircleImageView
+import org.apache.commons.io.IOUtils
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.InputStream
 
 class DashboardActivity : AppCompatActivity(), PermissionListener {
 
@@ -59,11 +64,11 @@ class DashboardActivity : AppCompatActivity(), PermissionListener {
         navView.setupWithNavController(navController)
 
 
-        fab.setOnClickListener(View.OnClickListener {
-            val dialogFragment: NewTweetDialogFragment =
+        fab.setOnClickListener {
+            val dialogFragment =
                 NewTweetDialogFragment()
             dialogFragment.show(supportFragmentManager, "NewTweetDialogFragment")
-        })
+        }
     }
 
     private fun findViews() {
@@ -93,21 +98,42 @@ class DashboardActivity : AppCompatActivity(), PermissionListener {
             if (requestCode == Constants.SELECT_PHOTO_GALLERY) {
                 if (data != null) {
                     var imagenSeleccionada: Uri = data.data!!
-                    var filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-                    var cursor: Cursor = contentResolver.query(
-                        imagenSeleccionada,
-                        filePathColumn, null, null, null
-                    )!!
-                    if (cursor != null){
-                        cursor.moveToFirst()
-                        val imageIndex = cursor.getColumnIndex(filePathColumn[0])
-                        val photoPath: String = cursor.getString(imageIndex)
-                        profileViewModel.uploadPhoto(photoPath)
-                        cursor.close()
+                    /*val parcelFileDescriptor = this.contentResolver.openFileDescriptor(imagenSeleccionada, "r", null)
+                    val inputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
+
+                    val file = File(this.cacheDir, getFileName(imagenSeleccionada))
+                    val outputStream = FileOutputStream(file)
+                    inputStream.copyTo(outputStream)
+                    profileViewModel.uploadPhoto(file)
+*/
+                    val parcelFileDescriptor =
+                        this.contentResolver.openFileDescriptor(imagenSeleccionada, "r", null)
+
+                    parcelFileDescriptor?.let {
+                        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+                        val file =
+                            File(this.cacheDir, getFileName(imagenSeleccionada))
+                        val outputStream = FileOutputStream(file)
+                        IOUtils.copy(inputStream, outputStream)
+                        profileViewModel.uploadPhoto(file)
+
                     }
                 }
             }
         }
+    }
+
+    private fun getFileName(fileUri: Uri): String {
+
+        var name = ""
+        val returnCursor = contentResolver.query(fileUri, null, null, null, null)
+        if (returnCursor != null) {
+            val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            returnCursor.moveToFirst()
+            name = returnCursor.getString(nameIndex)
+            returnCursor.close()
+        }
+        return name
     }
 
     override fun onPermissionGranted(p0: PermissionGrantedResponse?) {

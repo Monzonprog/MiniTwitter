@@ -99,9 +99,9 @@ class ProfileRepository {
         return userProfile
     }
 
-    fun uploadPhoto(photoPath: String) {
+    fun uploadPhoto(file: File) {
 
-        var file = File(photoPath)
+        //var file = File(photoPath)
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("image/jpg"), file)
         val call: Call<ResponseUploadPhoto> = authMiniTwitterService.uploadProfilePhoto(requestBody)
 
