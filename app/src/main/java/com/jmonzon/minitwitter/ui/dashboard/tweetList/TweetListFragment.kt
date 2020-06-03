@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -48,7 +49,7 @@ class TweetListFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.list)
         swipeRefreshLayout = view.findViewById(R.id.swiperefreshlayout)
-        swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.colorAzul))
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(view.context, R.color.colorAzul))
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = true
             //Depending if we are in the list tweet or fav tweet swipeRefreshLayout reload
